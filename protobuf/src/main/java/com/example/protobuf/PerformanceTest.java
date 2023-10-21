@@ -16,6 +16,7 @@ public class PerformanceTest {
         Runnable json = () -> {
             try {
                 byte[] bytes = mapper.writeValueAsBytes(person);
+                // System.out.println(bytes.length); // 23 elements
                 JPerson person1 = mapper.readValue(bytes, JPerson.class);
             } catch (Exception e) {
                 throw new RuntimeException(e);
@@ -30,6 +31,7 @@ public class PerformanceTest {
         Runnable protobuf = () -> {
             try {
                 byte[] bytes = sam.toByteArray();
+                // System.out.println(bytes.length); // 7 elements
                 Person sam1 = Person.parseFrom(bytes);
             } catch (Exception e) {
                 throw new RuntimeException(e);
