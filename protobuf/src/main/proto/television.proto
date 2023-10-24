@@ -12,17 +12,29 @@ option java_package = "com.example.models";
 //  int32 year = 2;
 //}
 
-// v2
+// v2 adding and renaming a field
 //message Television {
 //  string brand = 1;
 //  int32 model = 2;
 //  Type type = 3;
 //}
 
-// v3
+// v3 removing a field
+//message Television {
+//  string brand = 1;
+//  Type type = 3;
+//}
+
+// v4 overwriting a prior existing field
 message Television {
   string brand = 1;
+//  int32 price = 2; // risky since older versions use prior field
+
+  reserved 2;
+  reserved "year", "model";
+
   Type type = 3;
+  int32 price = 4;
 }
 
 enum Type {
