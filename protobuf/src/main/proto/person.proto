@@ -7,7 +7,9 @@ option java_multiple_files = true;
 option java_package = "com.example.models";
 
 message Person {
-  string name = 1;
+  // 1 - 15 = 1 byte (better for frequently used fields)
+  // 16 - 2047 = 2 bytes (empty values not sent)
+  string name = 1; // 1 is the tag, number is arbitrary
   int32 age = 2;
   common.Address address = 3;
   repeated common.Car car = 4;
