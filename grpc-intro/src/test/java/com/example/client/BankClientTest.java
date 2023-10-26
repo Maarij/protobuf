@@ -26,7 +26,7 @@ public class BankClientTest {
     @Test
     public void balanceTest() {
         BalanceCheckRequest balanceRequest = BalanceCheckRequest.newBuilder()
-                .setAccountNumber(5)
+                .setAccountNumber(7)
                 .build();
 
         // Send request and wait for response (synchronous)
