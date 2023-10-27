@@ -27,4 +27,6 @@ service BankService {
 
   // server-side streaming
   rpc withdraw(WithdrawRequest) returns (stream Money);
+
+
 }
