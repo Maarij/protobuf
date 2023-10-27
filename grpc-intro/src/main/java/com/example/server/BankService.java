@@ -15,6 +15,8 @@ public class BankService extends BankServiceGrpc.BankServiceImplBase {
                 .build();
 
         responseObserver.onNext(balance);
+        responseObserver.onNext(balance);
+        responseObserver.onNext(balance);
         responseObserver.onCompleted();
     }
 
