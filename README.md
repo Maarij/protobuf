@@ -6,7 +6,7 @@ This project explores using the protobuf protocol over json for high performance
 
 # Protocol Buffers
 * Interface description language for API
-* Platform & language neutral for serializing/deserializing structured data optimized for interservice communication via HTTP2 for transport
+* Platform & language neutral for serializing/deserializing structured data optimized for interservice communication via HTTP/2 for transport
 * Provides client libraries automatically for most used BE languages
 * Proto types existing that correspond to exiting common types (int, string, boolean, etc). These contain default values.
 * OneOf type is similar to interface implementations
@@ -14,7 +14,7 @@ This project explores using the protobuf protocol over json for high performance
 * Must exercise caution for altering field ordering and type setups
 
 # Introduction & Unary RPC
-# Client makes a single request and server sends a single response
+* Client makes a single request and server sends a single response
 * Service is defined using a proto
 * Calls can be sync or async by a client app
 * 4 types of RPC
@@ -27,6 +27,10 @@ This project explores using the protobuf protocol over json for high performance
 * Channels are used to communicating with server's port
 
 # Server Streaming RPC
-# Client makes a single request and server can send a stream of responses
-# Status response codes: https://developers.google.com/actions-center/reference/grpc-api-v2/status_codes
-# Use case is when you need to provide multiple responses over time or not overwhelm the receiver
+* Client makes a single request and server can send a stream of responses
+* Status response codes: https://developers.google.com/actions-center/reference/grpc-api-v2/status_codes
+* Use case is when you need to provide multiple responses over time or not overwhelm the receiver
+
+# Client Streaming RPC
+* Client streams requests and server sends a single response
+
