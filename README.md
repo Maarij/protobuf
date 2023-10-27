@@ -1,11 +1,12 @@
 # Protobuf Implementations
 
-# https://www.udemy.com/course/grpc-the-complete-guide-for-java-developers 
+https://www.udemy.com/course/grpc-the-complete-guide-for-java-developers 
 
 This project explores using the protobuf protocol over json for high performance inter-service communication.
+
 # Protocol Buffers
 * Interface description language for API
-* Platform & language neutral for serializing/deserializing structured data optimized for interservice communication
+* Platform & language neutral for serializing/deserializing structured data optimized for interservice communication via HTTP2 for transport
 * Provides client libraries automatically for most used BE languages
 * Proto types existing that correspond to exiting common types (int, string, boolean, etc). These contain default values.
 * OneOf type is similar to interface implementations
@@ -28,3 +29,4 @@ This project explores using the protobuf protocol over json for high performance
 # Server Streaming RPC
 # Client makes a single request and server can send a stream of responses
 # Status response codes: https://developers.google.com/actions-center/reference/grpc-api-v2/status_codes
+# Use case is when you need to provide multiple responses over time or not overwhelm the receiver
