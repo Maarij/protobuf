@@ -20,6 +20,7 @@ This project explores using the protobuf protocol over json for high performance
   * Bidirectional-streaming - Completely independent for number of responses sent and returned
 * service paired with rpc keyword helps create client libraries from .proto files that others can consume
 * StreamObserver sends the response back through 2 channels: data and error
-* Channels are used to communicating with server
+* Channels are used to communicating with server's port
+* 
 
 
