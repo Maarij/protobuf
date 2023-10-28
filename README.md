@@ -33,4 +33,9 @@ This project explores using the protobuf protocol over json for high performance
 
 # Client Streaming RPC
 * Client streams requests and server sends a single response
+* Client invokes method and is returned a handler for streaming
+
+# Bi-Directional Streaming RPC
+* Client streams multiple requests and server streams responses back for each request
+
 
