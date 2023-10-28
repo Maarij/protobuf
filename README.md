@@ -37,5 +37,3 @@ This project explores using the protobuf protocol over json for high performance
 
 # Bi-Directional Streaming RPC
 * Client streams multiple requests and server streams responses back for each request
-
-
