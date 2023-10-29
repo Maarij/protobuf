@@ -1,7 +1,6 @@
-package com.example.client;
+package com.example.client.rpctypes;
 
 import com.example.models.*;
-import com.google.common.util.concurrent.Uninterruptibles;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
@@ -10,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class BankClientTest {
@@ -24,12 +22,8 @@ public class BankClientTest {
                 .usePlaintext()
                 .build();
 
-        System.out.println("Channel is created");
-
         this.blockingStub = BankServiceGrpc.newBlockingStub(managedChannel);
         this.bankServiceStub = BankServiceGrpc.newStub(managedChannel);
-
-        System.out.println("Stubs are created");
     }
 
     @Test
