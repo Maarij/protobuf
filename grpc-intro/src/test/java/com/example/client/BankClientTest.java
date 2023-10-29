@@ -20,16 +20,21 @@ public class BankClientTest {
 
     @BeforeAll
     public void setup() {
-        ManagedChannel managedChannel = ManagedChannelBuilder.forAddress("localhost", 6565)
+        ManagedChannel managedChannel = ManagedChannelBuilder.forAddress("localhost", 7200)
                 .usePlaintext()
                 .build();
 
+        System.out.println("Channel is created");
+
         this.blockingStub = BankServiceGrpc.newBlockingStub(managedChannel);
         this.bankServiceStub = BankServiceGrpc.newStub(managedChannel);
+
+        System.out.println("Stubs are created");
     }
 
     @Test
-    public void balanceTest() {
+    public void balanceTest() throws InterruptedException {
+        Thread.sleep(5000);
         BalanceCheckRequest balanceRequest = BalanceCheckRequest.newBuilder()
                 .setAccountNumber(7)
                 .build();
