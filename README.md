@@ -37,3 +37,9 @@ This project explores using the protobuf protocol over json for high performance
 
 # Bi-Directional Streaming RPC
 * Client streams multiple requests and server streams responses back for each request
+
+# Load Balancing
+* HTTP/1 works by sending a request and waiting for a response. Until you get a response, you cannot make another request in the same connection
+* HTTP/2 overcomes this by multiplexing. You can send multiple and parallel requests via one connection
+* Configurable channels are created allow the HTTP/2 channel to persist
+  * Channel establishes a connection if one does not exist between client and server
