@@ -18,7 +18,7 @@ public class BankClientTest {
 
     @BeforeAll
     public void setup() {
-        ManagedChannel managedChannel = ManagedChannelBuilder.forAddress("localhost", 7200)
+        ManagedChannel managedChannel = ManagedChannelBuilder.forAddress("localhost", 6565)
                 .usePlaintext()
                 .build();
 
