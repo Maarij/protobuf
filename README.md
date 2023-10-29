@@ -43,3 +43,7 @@ This project explores using the protobuf protocol over json for high performance
 * HTTP/2 overcomes this by multiplexing. You can send multiple and parallel requests via one connection
 * Configurable channels are created allow the HTTP/2 channel to persist
   * Channel establishes a connection if one does not exist between client and server
+  * Thread-safe but expensive process to create initially
+  * Shared between multiple stubs for the server
+  
+  
