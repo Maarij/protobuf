@@ -45,5 +45,5 @@ This project explores using the protobuf protocol over json for high performance
   * Channel establishes a connection if one does not exist between client and server
   * Thread-safe but expensive process to create initially
   * Shared between multiple stubs for the server
-  
-  
+* Server side and client side load balancing available
+* Server side places a proxy in front, client unaware through channel
