@@ -37,7 +37,6 @@ public class MetadataClientTest {
 
     @Test
     public void balanceTest() throws InterruptedException {
-        Thread.sleep(5000);
         BalanceCheckRequest balanceRequest = BalanceCheckRequest.newBuilder()
                 .setAccountNumber(7)
                 .build();
@@ -49,7 +48,7 @@ public class MetadataClientTest {
 
             System.out.println("Received: " + balance.getAmount());
         } catch (StatusRuntimeException e) {
-            // go with default value
+            e.printStackTrace();
         }
     }
 
