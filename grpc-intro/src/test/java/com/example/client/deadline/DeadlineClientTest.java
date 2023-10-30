@@ -53,8 +53,14 @@ public class DeadlineClientTest {
 
     @Test
     public void withdrawTest() {
-        WithdrawRequest withdrawRequest = WithdrawRequest.newBuilder().setAccountNumber(7).setAmount(40).build();
-        this.blockingStub.withdraw(withdrawRequest)
+        WithdrawRequest withdrawRequest = WithdrawRequest.newBuilder()
+                .setAccountNumber(7)
+                .setAmount(50)
+                .build();
+
+        this.blockingStub
+                .withDeadline(Deadline.after(4, TimeUnit.SECONDS))
+                .withdraw(withdrawRequest)
                 .forEachRemaining(money -> System.out.println("Received: " + money.getValue()));
     }
 
