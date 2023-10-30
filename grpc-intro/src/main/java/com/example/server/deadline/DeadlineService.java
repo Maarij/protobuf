@@ -3,8 +3,11 @@ package com.example.server.deadline;
 import com.example.models.*;
 import com.example.server.rpctypes.AccountDatabase;
 import com.example.server.rpctypes.CashStreamingRequest;
+import com.google.common.util.concurrent.Uninterruptibles;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
+
+import java.util.concurrent.TimeUnit;
 
 public class DeadlineService extends BankServiceGrpc.BankServiceImplBase {
 
@@ -15,6 +18,9 @@ public class DeadlineService extends BankServiceGrpc.BankServiceImplBase {
         Balance balance = Balance.newBuilder()
                 .setAmount(AccountDatabase.getBalance(accountNumber))
                 .build();
+
+        // simulate time consuming call
+        Uninterruptibles.sleepUninterruptibly(3, TimeUnit.SECONDS);
 
         responseObserver.onNext(balance);
         responseObserver.onCompleted();

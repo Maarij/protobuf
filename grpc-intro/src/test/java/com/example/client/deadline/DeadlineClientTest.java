@@ -1,16 +1,20 @@
 package com.example.client.deadline;
 
-import com.example.client.rpctypes.BalanceStreamObserver;
 import com.example.client.rpctypes.MoneyStreamingResponse;
-import com.example.models.*;
+import com.example.models.Balance;
+import com.example.models.BalanceCheckRequest;
+import com.example.models.BankServiceGrpc;
+import com.example.models.WithdrawRequest;
+import io.grpc.Deadline;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
-import io.grpc.stub.StreamObserver;
+import io.grpc.StatusRuntimeException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class DeadlineClientTest {
@@ -36,9 +40,15 @@ public class DeadlineClientTest {
                 .build();
 
         // Send request and wait for response (synchronous)
-        Balance balance = this.blockingStub.getBalance(balanceRequest);
+        try {
+            Balance balance = this.blockingStub
+                    .withDeadline(Deadline.after(2, TimeUnit.SECONDS))
+                    .getBalance(balanceRequest);
 
-        System.out.println("Received: " + balance.getAmount());
+            System.out.println("Received: " + balance.getAmount());
+        } catch (StatusRuntimeException e) {
+            // go with default value
+        }
     }
 
     @Test
