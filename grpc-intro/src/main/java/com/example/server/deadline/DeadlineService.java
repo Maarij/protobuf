@@ -4,6 +4,7 @@ import com.example.models.*;
 import com.example.server.rpctypes.AccountDatabase;
 import com.example.server.rpctypes.CashStreamingRequest;
 import com.google.common.util.concurrent.Uninterruptibles;
+import io.grpc.Context;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 
@@ -45,12 +46,17 @@ public class DeadlineService extends BankServiceGrpc.BankServiceImplBase {
             // simulate time consuming call
             Uninterruptibles.sleepUninterruptibly(3, TimeUnit.SECONDS);
 
-            responseObserver.onNext(money);
-            System.out.println("Delivered $10");
+            if (!Context.current().isCancelled()) {
+                responseObserver.onNext(money);
+                System.out.println("Delivered $10");
 
-            AccountDatabase.deductBalance(accountNumber, 10);
+                AccountDatabase.deductBalance(accountNumber, 10);
+            } else {
+                break;
+            }
         }
 
+        System.out.println("Completed");
         responseObserver.onCompleted();
     }
 
