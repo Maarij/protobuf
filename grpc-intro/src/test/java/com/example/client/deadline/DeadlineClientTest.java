@@ -60,6 +60,7 @@ public class DeadlineClientTest {
                 .build();
 
         this.blockingStub
+                .withDeadline(Deadline.after(1, TimeUnit.SECONDS))
                 .withdraw(withdrawRequest)
                 .forEachRemaining(money -> System.out.println("Received: " + money.getValue()));
     }
