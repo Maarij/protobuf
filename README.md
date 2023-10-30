@@ -57,4 +57,3 @@ This project explores using the protobuf protocol over json for high performance
 
 # Interceptor
 * Can intercept RPCs both at client and server side. Useful for cross-cutting concerns.
-
