@@ -55,3 +55,6 @@ This project explores using the protobuf protocol over json for high performance
 * Deadlines can be used by the client to do this but this can cause the server to continue processing
 * Server calls should check if the call is canceled
 
+# Interceptor
+* Can intercept RPCs both at client and server side. Useful for cross-cutting concerns.
+

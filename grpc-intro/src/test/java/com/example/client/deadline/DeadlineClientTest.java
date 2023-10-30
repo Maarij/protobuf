@@ -5,6 +5,7 @@ import com.example.models.Balance;
 import com.example.models.BalanceCheckRequest;
 import com.example.models.BankServiceGrpc;
 import com.example.models.WithdrawRequest;
+import com.example.server.deadline.DeadlineInterceptor;
 import io.grpc.Deadline;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -25,6 +26,7 @@ public class DeadlineClientTest {
     @BeforeAll
     public void setup() {
         ManagedChannel managedChannel = ManagedChannelBuilder.forAddress("localhost", 6565)
+                .intercept(new DeadlineInterceptor())
                 .usePlaintext()
                 .build();
 
@@ -42,7 +44,6 @@ public class DeadlineClientTest {
         // Send request and wait for response (synchronous)
         try {
             Balance balance = this.blockingStub
-                    .withDeadline(Deadline.after(2, TimeUnit.SECONDS))
                     .getBalance(balanceRequest);
 
             System.out.println("Received: " + balance.getAmount());
@@ -59,7 +60,6 @@ public class DeadlineClientTest {
                 .build();
 
         this.blockingStub
-                .withDeadline(Deadline.after(4, TimeUnit.SECONDS))
                 .withdraw(withdrawRequest)
                 .forEachRemaining(money -> System.out.println("Received: " + money.getValue()));
     }
