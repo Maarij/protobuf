@@ -47,3 +47,5 @@ This project explores using the protobuf protocol over json for high performance
   * Shared between multiple stubs for the server
 * Server side and client side load balancing available
 * Server side places a proxy in front, client unaware through channel
+* Client side does not using a proxy to be faster
+ * This requires the client knowing all the server IPs via a server registry and sub-channels
