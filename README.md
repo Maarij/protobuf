@@ -49,3 +49,9 @@ This project explores using the protobuf protocol over json for high performance
 * Server side places a proxy in front, client unaware through channel
 * Client side does not using a proxy to be faster
  * This requires the client knowing all the server IPs via a server registry and sub-channels
+ 
+# Deadlines
+* Issues can occur where the client is still waiting for a request but kills the connection.
+* Deadlines can be used by the client to do this but this can cause the server to continue processing
+* Server calls should check if the call is canceled
+
