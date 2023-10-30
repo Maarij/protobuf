@@ -1,20 +1,25 @@
 package com.example.client.loadbalancing;
 
+import com.example.client.rpctypes.BalanceStreamObserver;
 import com.example.models.Balance;
 import com.example.models.BalanceCheckRequest;
 import com.example.models.BankServiceGrpc;
+import com.example.models.DepositRequest;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.stub.StreamObserver;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ThreadLocalRandom;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class NginxTestClient {
 
     private BankServiceGrpc.BankServiceBlockingStub blockingStub;
+    private BankServiceGrpc.BankServiceStub bankServiceStub;
 
     @BeforeAll
     public void setup() {
@@ -23,6 +28,7 @@ public class NginxTestClient {
                 .build();
 
         this.blockingStub = BankServiceGrpc.newBlockingStub(managedChannel);
+        this.bankServiceStub = BankServiceGrpc.newStub(managedChannel);
     }
 
     @Test
@@ -32,12 +38,25 @@ public class NginxTestClient {
                     .setAccountNumber(ThreadLocalRandom.current().nextInt(1, 11))
                     .build();
 
-            Thread.sleep(500);
-
             // Send request and wait for response (synchronous)
             Balance balance = this.blockingStub.getBalance(balanceRequest);
 
             System.out.println("Received: " + balance.getAmount());
         }
+    }
+
+    @Test
+    public void cashStreamingRequest() throws InterruptedException {
+        CountDownLatch latch = new CountDownLatch(1);
+
+        StreamObserver<DepositRequest> streamObserver = this.bankServiceStub.cashDeposit(new BalanceStreamObserver(latch));
+
+        for (int i = 0; i < 10; i++) {
+            DepositRequest request = DepositRequest.newBuilder().setAccountNumber(8).setAmount(10).build();
+            streamObserver.onNext(request);
+        }
+
+        streamObserver.onCompleted();
+        latch.await();
     }
 }
